@@ -1,3 +1,46 @@
+void process_ingredients(ifstream &in, Grocery_Item_Ptr &head) 
+{   
+    Grocery_Item_Ptr newNode = NULL; 
+    Grocery_Item_Ptr temp1 = NULL;
+
+    int amount;
+    char food[SIZE + 1]; 
+    bool success = true;
+    int counter = 0;
+
+    // creates an empty Node to pinpoint the start
+
+    newNode = new Grocery_Item; //Creates new Node
+    newNode->quantity = 0; 
+    strncpy(newNode->name, "\0", SIZE);  
+    head = newNode; //head is the startpoint
+    temp1 = newNode; //temp is also the startpoint
+
+    // Get all information for a node
+    read_input_line(in, amount, food, success); 
+
+    while(success){ 
+            
+        newNode = new Grocery_Item; // Creates new Node
+        newNode->quantity = amount;  // Inserts the amount
+        strncpy(newNode->name, food, SIZE); //Inserts the name
+        temp1->next = newNode; // points towards the new Node, creating a link
+        temp1 = newNode; // temp1 is now situtated at the new Node
+
+        counter++; // increments the amount of nodes1`    
+
+        read_input_line(in, amount, food, success);
+    }
+
+    newNode->next = NULL;
+
+    insert_item(head);
+    
+    return;
+
+}
+
+
 void insert_item(Grocery_Item_Ptr &head){ 
 
     combine_items(head); 
